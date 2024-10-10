@@ -10,6 +10,9 @@ camera.position.set(-352, 50, 566);  // Start position: -352, 50, 566
 let object;
 let objToRender = 'eye';
 let objToRender2 = 'dino';
+let objToRender3 = 'pot';
+let objToRender4 = 'bench';
+let objToRender5 = 'pot2';
 const loader = new GLTFLoader();
 
 // Load model
@@ -34,6 +37,39 @@ loader.load(
   }
 );
 
+// Load model
+loader.load(
+  `models/${objToRender3}/scene.gltf`,
+  function (gltf) {
+    object = gltf.scene;
+    object.scale.set(60, 60, 60);
+    object.position.set(175, 25, 730);
+    scene.add(object);
+  }
+);
+
+// Load model
+loader.load(
+  `models/${objToRender4}/scene.gltf`,
+  function (gltf) {
+    object = gltf.scene;
+    object.scale.set(60, 60, 60);
+    object.position.set(-261, 0, 453);
+    scene.add(object);
+  }
+);
+
+// Load model
+loader.load(
+  `models/${objToRender5}/scene.gltf`,
+  function (gltf) {
+    object = gltf.scene;
+    object.scale.set(60, 60, 60);
+    object.position.set(-327, 0, 458);
+    scene.add(object);
+  }
+);
+
 const renderer = new THREE.WebGLRenderer({ alpha: true });
 renderer.setSize(window.innerWidth, window.innerHeight);
 document.getElementById("container3D").appendChild(renderer.domElement);
@@ -48,6 +84,10 @@ renderer.domElement.addEventListener('click', () => {
 const topLight = new THREE.DirectionalLight(0xffffff, 0.3);
 topLight.position.set(28, 150, 284);
 scene.add(topLight);
+
+const topLight2 = new THREE.DirectionalLight(0xffffff, 0.3);
+topLight2.position.set(-152.28, 50, 399.42);
+scene.add(topLight2);
 
 const hemisphereLight = new THREE.HemisphereLight(0xaaaaaa, 0x444444, 0.5);
 scene.add(hemisphereLight);
@@ -212,15 +252,12 @@ document.addEventListener('mousemove', onMouseMove);
 
 
 
-// Array to hold art pieces
-const artPieces = [];
-const artDetails = [
-  { position: [-8, 50, 580], size: [50, 30, 1], textureUrl: 'https://images.unsplash.com/photo-1459664018906-085c36f472af?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTl8fGFydCUyMGdhbGxlcnklMjB3YWxsfGVufDB8fDB8fHww', title: "Art Piece 1", description: "Description for Art 1", artist: "Artist 1" },
-  { position: [-8, 50, 520], size: [50, 30, 1], textureUrl: 'https://images.unsplash.com/photo-1579541592065-da8a15e49bc7?q=80&w=1701&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', title: "Art Piece 2", description: "Description for Art 2", artist: "Artist 2" },
-  { position: [-8, 50, 460], size: [50, 30, 1], textureUrl: './pics/test1.jpg', title: "Art Piece 3", description: "Description for Art 3", artist: "Artist 3" }
-];
+// Raycaster setup for click detection
+const raycaster = new THREE.Raycaster();
+const mouse = new THREE.Vector2();
+raycaster.far = 2000;
 
-// Create a div to display art information
+// Divs for displaying information
 const artInfoDiv = document.createElement('div');
 artInfoDiv.style.position = 'absolute';
 artInfoDiv.style.top = '50%';
@@ -234,78 +271,6 @@ artInfoDiv.style.borderRadius = '10px';
 artInfoDiv.style.boxShadow = '0 4px 8px rgba(0, 0, 0, 0.5)';
 document.body.appendChild(artInfoDiv);
 
-// Function to format text
-function formatText(text) {
-  const words = text.split(' ');
-  const formattedLines = [];
-  for (let i = 0; i < words.length; i += 6) {
-    formattedLines.push(words.slice(i, i + 6).join(' '));
-  }
-  return formattedLines.join('<br>');
-}
-
-// Function to display art information
-function displayArtInfo(title, description, artist) {
-  artInfoDiv.innerHTML = `<strong>${title}</strong><br>${formatText(description)}<br><em>${artist}</em>`;
-  artInfoDiv.style.display = 'block';
-}
-
-// Create a TextureLoader instance
-const textureLoader = new THREE.TextureLoader();
-
-// Add art pieces with textures to the scene
-artDetails.forEach(detail => {
-  const artPieceGeometry = new THREE.BoxGeometry(...detail.size);
-
-  // Load texture using the provided URL
-  textureLoader.load(detail.textureUrl, (texture) => {
-    const artPieceMaterial = new THREE.MeshBasicMaterial({ map: texture });
-    const artPiece = new THREE.Mesh(artPieceGeometry, artPieceMaterial);
-    artPiece.position.set(...detail.position);
-
-    // Apply rotation to Math.PI / 2 (90 degrees) along Y-axis
-    artPiece.rotation.y = Math.PI / 2;
-
-    scene.add(artPiece);
-    artPiece.userData = detail;  // Attach the details
-    artPieces.push(artPiece);
-
-    // Add individual click event for each art piece
-    artPiece.addEventListener('click', () => {
-      displayArtInfo(detail.title, detail.description, detail.artist);
-
-    });
-  });
-});
-
-// Raycaster for click detection
-const raycaster = new THREE.Raycaster();
-const mouse = new THREE.Vector2();
-raycaster.far = 2000; // Increase raycasting reach
-
-renderer.domElement.addEventListener('click', (event) => {
-  mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
-  mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
-  raycaster.setFromCamera(mouse, camera);
-  const intersects = raycaster.intersectObjects(artPieces, false);
-
-  if (intersects.length > 0) {
-    const clickedPiece = intersects[0].object;
-    clickedPiece.dispatchEvent({ type: 'click' });  // Trigger individual art piece click event
-  } else {
-    artInfoDiv.style.display = 'none'; // Hide info if clicked elsewhere
-  }
-});
-
-// Array to hold invisible click boxes
-const clickableBoxes = [];
-const modelDetails = [
-  { position: [-160.88, 45, 393.15], size: [40, 40, 40], title: "Type - 59", description: "A ferocious tank used in war in Viet Nam", artist: "China/USSR" },
-  { position: [50, 45, 200], size: [20, 20, 20], title: "Eye Model", description: "An intricate 3D model of a human eye", artist: "Artist B" },
-  { position: [-100, 45, -300], size: [20, 20, 20], title: "Robot Model", description: "A futuristic robot model", artist: "Artist C" }
-];
-
-// Create a div to display model information
 const modelInfoDiv = document.createElement('div');
 modelInfoDiv.style.position = 'absolute';
 modelInfoDiv.style.top = '50%';
@@ -319,42 +284,85 @@ modelInfoDiv.style.borderRadius = '10px';
 modelInfoDiv.style.boxShadow = '0 4px 8px rgba(0, 0, 0, 0.5)';
 document.body.appendChild(modelInfoDiv);
 
-// Function to display model information
+// Function to format text
+function formatText(text) {
+  const words = text.split(' ');
+  const formattedLines = [];
+  for (let i = 0; i < words.length; i += 9) {
+    formattedLines.push(words.slice(i, i + 9).join(' '));
+  }
+  return formattedLines.join('<br>');
+}
+
+// Separate display functions for art and model information
+function displayArtInfo(title, description, artist) {
+  artInfoDiv.innerHTML = `<strong>${title}</strong><br>${formatText(description)}<br><em>${artist}</em>`;
+  artInfoDiv.style.display = 'block';
+  modelInfoDiv.style.display = 'none';  // Hide model info if art is clicked
+}
+
 function displayModelInfo(title, description, artist) {
   modelInfoDiv.innerHTML = `<strong>${title}</strong><br>${formatText(description)}<br><em>${artist}</em>`;
   modelInfoDiv.style.display = 'block';
+  artInfoDiv.style.display = 'none';  // Hide art info if model is clicked
 }
 
-// Create invisible clickable boxes and add them to the scene
+// Art and Model Arrays
+const artPieces = [];
+const clickableBoxes = [];
+const artDetails = [
+  { position: [-8, 50, 580], size: [50, 30, 1], textureUrl: '/pics/test1.jpg', title: "Art Piece 1", description: "Description for Art 1", artist: "Artist 1" }
+];
+const modelDetails = [
+  { position: [-160.88, 45, 393.15], size: [40, 40, 40], title: "Type - 59", description: "A ferocious tank used in war in Viet Nam", artist: "China/USSR" }
+];
+
+// TextureLoader for Art Pieces
+const textureLoader = new THREE.TextureLoader();
+artDetails.forEach(detail => {
+  const artPieceGeometry = new THREE.BoxGeometry(...detail.size);
+  textureLoader.load(detail.textureUrl, (texture) => {
+    const artPieceMaterial = new THREE.MeshBasicMaterial({ map: texture });
+    const artPiece = new THREE.Mesh(artPieceGeometry, artPieceMaterial);
+    artPiece.position.set(...detail.position);
+    artPiece.rotation.y = Math.PI / 2;  // Rotate art piece
+    scene.add(artPiece);
+    artPiece.userData = detail;
+    artPieces.push(artPiece);
+  });
+});
+
+// Create Invisible Click Boxes for Models
 modelDetails.forEach(detail => {
   const boxGeometry = new THREE.BoxGeometry(...detail.size);
-  const invisibleMaterial = new THREE.MeshBasicMaterial({ color: 0x000000, transparent: true, opacity: 0 }); // Invisible material
+  const invisibleMaterial = new THREE.MeshBasicMaterial({ color: 0x000000, transparent: true, opacity: 0 });
   const clickableBox = new THREE.Mesh(boxGeometry, invisibleMaterial);
-
   clickableBox.position.set(...detail.position);
-  clickableBox.userData = detail;  // Store model information in userData
+  clickableBox.userData = detail;
   scene.add(clickableBox);
   clickableBoxes.push(clickableBox);
 });
 
-// Raycaster for click detection
-raycaster.far = 2000; // Increase raycasting reach
-
+// Separate Click Event Handlers for Art Pieces and Models
 renderer.domElement.addEventListener('click', (event) => {
   mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
   mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
   raycaster.setFromCamera(mouse, camera);
-  const intersects = raycaster.intersectObjects(clickableBoxes, false);
 
+  // Check for Art Piece Clicks
+  let intersects = raycaster.intersectObjects(artPieces, false);
+  if (intersects.length > 0) {
+    const clickedPiece = intersects[0].object;
+    displayArtInfo(clickedPiece.userData.title, clickedPiece.userData.description, clickedPiece.userData.artist);
+    return;
+  }
+
+  // Check for Model Clicks if no Art Piece is Clicked
+  intersects = raycaster.intersectObjects(clickableBoxes, false);
   if (intersects.length > 0) {
     const clickedBox = intersects[0].object;
     const modelInfo = clickedBox.userData;
     displayModelInfo(modelInfo.title, modelInfo.description, modelInfo.artist);
-
-    // Animate a bounce effect to visually indicate selection
-    gsap.to(clickedBox.scale, { x: 1.2, y: 1.2, z: 1.2, duration: 0.2, yoyo: true, repeat: 1 });
-  } else {
-    modelInfoDiv.style.display = 'none'; // Hide info if clicked elsewhere
   }
 });
 
@@ -420,6 +428,30 @@ document.addEventListener('mousemove', onMouseMove);
 document.addEventListener('keydown', onKeyDown);
 
 
+// Modify the existing click event listener to hide info divs when clicking on empty space
+renderer.domElement.addEventListener('click', (event) => {
+  mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+  mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+  raycaster.setFromCamera(mouse, camera);
+
+  let intersects = raycaster.intersectObjects(artPieces, false);
+  if (intersects.length > 0) {
+    const clickedPiece = intersects[0].object;
+    displayArtInfo(clickedPiece.userData.title, clickedPiece.userData.description, clickedPiece.userData.artist);
+    return;
+  }
+
+  intersects = raycaster.intersectObjects(clickableBoxes, false);
+  if (intersects.length > 0) {
+    const clickedBox = intersects[0].object;
+    const modelInfo = clickedBox.userData;
+    displayModelInfo(modelInfo.title, modelInfo.description, modelInfo.artist);
+  } else {
+    hideInfoDivs();  // Hide info divs if nothing is clicked
+  }
+});
+
+
 // Create Crosshair as a Cross
 const crosshair = document.createElement('div');
 crosshair.style.position = 'absolute';
@@ -474,21 +506,97 @@ window.addEventListener("resize", function () {
   renderer.setSize(window.innerWidth, window.innerHeight);
 });
 
+// Animation for showing/hiding info divs using GSAP
+function showInfoDiv(div) {
+  gsap.to(div, { duration: 0.5, opacity: 1, display: 'block', ease: 'power3.out' });
+}
 
-// Add click event listener
-renderer.domElement.addEventListener('click', (event) => {
-  // Update mouse variable with normalized coordinates
+function hideInfoDiv(div) {
+  gsap.to(div, { duration: 0.5, opacity: 0, display: 'none', ease: 'power3.out' });
+}
+// Utility function to hide both info divs
+function hideInfoDivs() {
+  hideInfoDiv(artInfoDiv);
+  hideInfoDiv(modelInfoDiv);
+}
+
+// GSAP animation for showing and hiding the "Click for info" hover message
+function showHoverMessage() {
+  gsap.to(hoverMessage, { opacity: 1, display: 'block', duration: 0.5, ease: 'power3.out' });
+}
+
+function hideHoverMessage() {
+  gsap.to(hoverMessage, { opacity: 0, display: 'none', duration: 0.5, ease: 'power3.out' });
+}
+
+// Display the message when crosshair hovers over objects
+const hoverMessage = document.createElement('div');
+hoverMessage.innerHTML = "Click for info";
+hoverMessage.style.position = 'absolute';
+hoverMessage.style.top = '55%';
+hoverMessage.style.left = '50%';
+hoverMessage.style.transform = 'translate(-50%, -50%)';
+hoverMessage.style.color = 'white';
+hoverMessage.style.backgroundColor = 'rgba(0, 0, 0, 0.7)';
+hoverMessage.style.padding = '10px';
+hoverMessage.style.borderRadius = '10px';
+hoverMessage.style.display = 'none';
+hoverMessage.style.zIndex = '1001';
+document.body.appendChild(hoverMessage);
+
+// Modify the existing hover message div style for animation control
+hoverMessage.style.opacity = 0;  // Initially hidden
+hoverMessage.style.display = 'none';  // Hidden by default
+
+// Update the raycasting logic to handle hover detection and show hover message
+renderer.domElement.addEventListener('mousemove', (event) => {
   mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
   mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
-
-  // Calculate objects intersecting the picking ray
   raycaster.setFromCamera(mouse, camera);
-  const intersects = raycaster.intersectObject(artPieces);
 
+  let intersects = raycaster.intersectObjects(artPieces, false);
   if (intersects.length > 0) {
-    isArtClicked = !isArtClicked; // Toggle display of art info
+    showHoverMessage();  // Fade in hover message
+    return;
+  }
+
+  intersects = raycaster.intersectObjects(clickableBoxes, false);
+  if (intersects.length > 0) {
+    showHoverMessage();  // Fade in hover message
+  } else {
+    hideHoverMessage();  // Fade out hover message when not hovering any object
   }
 });
+
+// Modify the existing click event listener for handling clicks on art pieces and models
+renderer.domElement.addEventListener('click', (event) => {
+  mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+  mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+  raycaster.setFromCamera(mouse, camera);
+
+  let intersects = raycaster.intersectObjects(artPieces, false);
+  if (intersects.length > 0) {
+    const clickedPiece = intersects[0].object;
+    displayArtInfo(clickedPiece.userData.title, clickedPiece.userData.description, clickedPiece.userData.artist);
+    showInfoDiv(artInfoDiv); // Animate showing art info div
+    return;
+  }
+
+  intersects = raycaster.intersectObjects(clickableBoxes, false);
+  if (intersects.length > 0) {
+    const clickedBox = intersects[0].object;
+    const modelInfo = clickedBox.userData;
+    displayModelInfo(modelInfo.title, modelInfo.description, modelInfo.artist);
+    showInfoDiv(modelInfoDiv); // Animate showing model info div
+  } else {
+    hideInfoDivs();  // Hide info divs if nothing is clicked
+  }
+});
+
+// Animate showing and hiding of the hover message based on intersection
+hoverMessage.style.transition = 'opacity 0.3s ease';
+
+
 
 // -- Start Screen Setup -- //
 const startScreen = document.getElementById('startScreen');
