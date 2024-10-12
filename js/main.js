@@ -311,7 +311,7 @@ function displayModelInfo(title, description, artist) {
 const artPieces = [];
 const clickableBoxes = [];
 const artDetails = [
-  { position: [-8, 50, 580], size: [50, 30, 1], textureUrl: '/pics/test1.jpg', title: "Art Piece 1", description: "Description for Art 1", artist: "Artist 1" }
+  { position: [-8, 50, 580], size: [50, 30, 1], textureUrl: 'pics/test1.jpg', title: "Art Piece 1", description: "Description for Art 1", artist: "Artist 1" }
 ];
 const modelDetails = [
   { position: [-160.88, 45, 393.15], size: [40, 40, 40], title: "Type - 59", description: "A ferocious tank used in war in Viet Nam", artist: "China/USSR" }
@@ -625,6 +625,113 @@ startButton.addEventListener('click', () => {
   sound.play();
   songInfo.style.display = 'block';
 });
+
+
+// Create a pitch-black loading screen div
+const loadingScreen = document.createElement('div');
+loadingScreen.style.position = 'absolute';
+loadingScreen.style.top = '0';
+loadingScreen.style.left = '0';
+loadingScreen.style.width = '100%';
+loadingScreen.style.height = '100%';
+loadingScreen.style.backgroundColor = 'black';  // Pitch black background
+loadingScreen.style.display = 'flex';
+loadingScreen.style.alignItems = 'center';
+loadingScreen.style.justifyContent = 'center';
+loadingScreen.style.zIndex = '9999';
+document.body.appendChild(loadingScreen);
+
+// Create a container for the progress bar
+const progressBarContainer = document.createElement('div');
+progressBarContainer.style.width = '50%';
+progressBarContainer.style.height = '5px';
+progressBarContainer.style.backgroundColor = 'rgba(255, 255, 255, 0.2)';  // Semi-transparent background for progress bar
+progressBarContainer.style.borderRadius = '15px';
+progressBarContainer.style.overflow = 'hidden';
+loadingScreen.appendChild(progressBarContainer);
+
+// Create the progress bar itself
+const progressBar = document.createElement('div');
+progressBar.style.width = '0%';  // Initial width set to 0%
+progressBar.style.height = '100%';
+progressBar.style.backgroundColor = '#ffffff';  // Green progress bar
+progressBar.style.borderRadius = '15px 0 0 15px';
+progressBarContainer.appendChild(progressBar);
+
+// Track the number of models to be loaded
+const modelsToLoad = [
+  { name: 'eye', url: `models/eye/scene.gltf` },
+  { name: 'dino', url: `models/dino/scene.gltf` },
+  { name: 'pot', url: `models/pot/scene.gltf` },
+  { name: 'bench', url: `models/bench/scene.gltf` },
+  { name: 'pot2', url: `models/pot2/scene.gltf` }
+];
+
+let modelsLoaded = 0;  // Counter for the number of loaded models
+
+// Create a function to handle model loading and track progress
+function loadModel(url, onLoad) {
+  loader.load(
+    url,
+    function (gltf) {
+      onLoad(gltf.scene);
+      modelsLoaded++;
+      updateProgressBar();  // Update progress bar whenever a model is loaded
+      checkIfLoadingComplete();  // Check if all models are loaded
+    },
+    undefined,
+    function (error) {
+      console.error(`Error loading model from ${url}:`, error);
+      modelsLoaded++;  // Increment even if there's an error to avoid infinite loading
+      updateProgressBar();  // Update progress bar even if there's an error
+      checkIfLoadingComplete();  // Check if all models are loaded
+    }
+  );
+}
+
+// Function to update the progress bar based on the number of models loaded
+function updateProgressBar() {
+  const progressPercentage = (modelsLoaded / modelsToLoad.length) * 100;
+  progressBar.style.width = `${progressPercentage}%`;  // Update progress bar width
+}
+
+// Check if all models are fully loaded
+function checkIfLoadingComplete() {
+  if (modelsLoaded === modelsToLoad.length) {
+    gsap.to(loadingScreen, { opacity: 0, duration: 1, onComplete: () => loadingScreen.style.display = 'none' });  // Hide loading screen
+    animate();  // Start rendering the scene
+  }
+}
+
+// Load all models and add them to the scene
+modelsToLoad.forEach(model => {
+  loadModel(model.url, (modelScene) => {
+    switch (model.name) {
+      case 'eye':
+        modelScene.scale.set(40, 40, 40);
+        modelScene.position.set(0, 0, 0);
+        break;
+      case 'dino':
+        modelScene.scale.set(3, 3, 3);
+        modelScene.position.set(-160.88, 45, 395.15);
+        break;
+      case 'pot':
+        modelScene.scale.set(60, 60, 60);
+        modelScene.position.set(175, 25, 730);
+        break;
+      case 'bench':
+        modelScene.scale.set(60, 60, 60);
+        modelScene.position.set(-261, 0, 453);
+        break;
+      case 'pot2':
+        modelScene.scale.set(60, 60, 60);
+        modelScene.position.set(-327, 0, 458);
+        break;
+    }
+    scene.add(modelScene);
+  });
+});
+
 
 
 
