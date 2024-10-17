@@ -524,13 +524,6 @@ function animate() {
   requestAnimationFrame(animate);
   renderer.render(scene, camera);
   updateSky();
-
-  coordDisplay.innerHTML = `
-    Camera Coordinates:<br>
-    X: ${camera.position.x.toFixed(2)}<br>
-    Y: ${camera.position.y.toFixed(2)} (Fixed)<br>
-    Z: ${camera.position.z.toFixed(2)}
-  `;
 }
 
 
