@@ -13,6 +13,8 @@ let objToRender2 = 'dino';
 let objToRender3 = 'pot';
 let objToRender4 = 'bench';
 let objToRender5 = 'pot2';
+let objToRender6 = 'AK-47';
+let objToRender7 = 'Artillery';
 const loader = new GLTFLoader();
 
 // Load model
@@ -69,6 +71,28 @@ loader.load(
     scene.add(object);
   }
 );
+// Load model
+loader.load(
+  `models/${objToRender6}/scene.gltf`,
+  function (gltf) {
+    object = gltf.scene;
+    object.scale.set(2, 2, 2);
+    object.position.set(-160, 50, 680);
+    scene.add(object);
+  }
+);
+// Load model
+loader.load(
+  `models/${objToRender7}/scene.gltf`,
+  function (gltf) {
+    object = gltf.scene;
+    object.scale.set(8, 8, 8);
+    object.position.set(203, 45, 580);
+    scene.add(object);
+  }
+);
+
+
 
 const renderer = new THREE.WebGLRenderer({ alpha: true });
 renderer.setSize(window.innerWidth, window.innerHeight);
@@ -229,8 +253,8 @@ const boundaries = {
   maxZ: 700
 };
 
-const moveSpeed = 5; // Reduced move speed
-const rotationSpeed = 0.0005; // Reduced turn speed for smoother control
+const moveSpeed = 9; // Reduced move speed
+const rotationSpeed = 0.0003; // Reduced turn speed for smoother control
 
 // Variables to control camera rotation
 let yaw = 0;  // Horizontal rotation
@@ -311,10 +335,30 @@ function displayModelInfo(title, description, artist) {
 const artPieces = [];
 const clickableBoxes = [];
 const artDetails = [
-  { position: [-8, 50, 580], size: [50, 30, 1], textureUrl: 'pics/test1.jpg', title: "Art Piece 1", description: "Description for Art 1", artist: "Artist 1" }
+  { position: [-7, 50, 585], size: [50, 30, 1], textureUrl: 'pics/taynguyen/5.webp', title: "Phương tiện chiến tranh ở Chi khu quân sự kiên cố Đức Lập", description: "Phương tiện chiến tranh của địch ở Chi khu quân sự kiên cố Đức Lập rơi vào tay quân giải phóng.", artist: "Tư liệu TTXVN" }
+  ,{ position: [-7, 50, 525], size: [50, 30, 1], textureUrl: 'pics/taynguyen/3.webp', title: "Phương tiện VNCH Chi khu kiên cố Đức Lập rơi vào tay quân giải phóng", description: "Xe tăng quân Giải phóng tấn công địch trong chiến dịch Tây Nguyên tháng 3/1975 ", artist: "Tư liệu TTXVN" }
+  ,{ position: [-7, 50, 465], size: [50, 30, 1], textureUrl: 'pics/taynguyen/8.webp', title: "Chiếm sân bay Hòa Bình", description: "Quân Giải phóng chiếm sân bây Hòa Bình (Buôn Ma Thuột)", artist: "Tư liệu TTXVN" }
+  ,{ position: [7, 50, 585], size: [50, 30, 1], textureUrl: 'pics/taynguyen/1.webp', title: "Giải phóng Quy Nhơn", description: "Pháo binh và xe tăng quân Giải phóng trên đường hành quân vào giải phóng Quy Nhơn", artist: "Vũ Tạo - TTXVN" }
+  ,{ position: [7, 50, 525], size: [50, 30, 1], textureUrl: 'pics/taynguyen/7.webp', title: "Giải phóng Đắc Tô - Tân Cảnh (Kon Tum)", description: "Bộ đội ta giải phóng Đắc Tô - Tân Cảnh (Kon Tum)", artist: "Lương Biên - TTXVN" }
+  ,{ position: [7, 50, 465], size: [50, 30, 1], textureUrl: 'pics/taynguyen/4.webp', title: "Xe quân đoàn 2 VNCH chiến thắng Tây Nguyên", description: "Quân giải phóng chặn đánh và phá huỷ phương tiện của lính ngụy thuộc Quân đoàn 2 rút chạy trên đường số 7 từ Cheo Reo đi Phú Bổn", artist: "Tư liệu TTXVN" }
+  ,{ position: [-7, 50, 245], size: [50, 30, 1], textureUrl: 'pics/danang/1.jpg', title: "Giải phóng Thừa Thiên Huế", description: "Quân ta tấn công theo 4 hướng: Tuyến phía Nam, tuyến phía Bắc, tuyến phía Tây - Bắc Huế và tuyến phía Tây.", artist: "Tư liệu TTXVN" }
+  ,{ position: [-7, 50, 185], size: [50, 30, 1], textureUrl: 'pics/danang/2.jpg', title: "Giải phóng thành phố Đà Nẵng", description: "Bộ đội ta tiến vào giải phóng thành phố Đà Nẵng", artist: "Tư liệu TTXVN" }
+  ,{ position: [-7, 50, 125], size: [50, 30, 1], textureUrl: 'pics/danang/3.jpg', title: "Bộ đội tiến vào Huế, hai bên đường là vũ khí và phương tiện quân Sài Gòn bỏ lại", description: "", artist: "Tư liệu TTXVN" } 
+  ,{ position: [7, 50, 245], size: [50, 30, 1], textureUrl: 'pics/danang/4.jpg', title: "Quân ta dành quyền kiểm soát ở Đà Nẳng", description: "CCB Trần Như Tiếp (giữa) cùng đồng đội tại sân bay Đà Nẵng trong ngày giải phóng", artist: "Tư liệu TTXVN" }
+  ,{ position: [7, 50, 185], size: [50, 30, 1], textureUrl: 'pics/test1.jpg', title: "Art Piece 5", description: "Description for Art 1", artist: "Artist 1" }
+  ,{ position: [7, 50, 125], size: [50, 30, 1], textureUrl: 'pics/test1.jpg', title: "Art Piece 6", description: "Description for Art 1", artist: "Artist 1" }
+  ,{ position: [555, 50, 15], size: [50, 30, 1], textureUrl: 'pics/tphcm/1.jpg', title: "Xe tăng của Lữ đoàn tăng (thiết giáp 203)", description: "Sư đoàn 304, Quân đoàn 2 tiến vào Dinh Độc Lập", artist: "Tư liệu TTXVN" }
+  ,{ position: [555, 50, -45], size: [50, 30, 1], textureUrl: 'pics/tphcm/2.webp', title: "Bộ đội lên máy bay vận tải", description: "Bộ đội lên máy bay vận tải vào miền Nam tham gia Chiến dịch Hồ Chí Minh", artist: "Tư liệu TTXVN" }
+  ,{ position: [555, 50, -105], size: [50, 30, 1], textureUrl: 'pics/tphcm/3.jpg', title: "Đánh chiếm Bộ Tổng Tham mưu", description: "Đánh chiếm Bộ Tổng Tham mưu cùng ngày 30/4/1975 lúc 10 giờ 30 phút", artist: "Tư liệu TTXVN" }
+  ,{ position: [574, 50, 15], size: [50, 30, 1], textureUrl: 'pics/tphcm/4.jpg', title: "Một trận địa pháo M-46 130mm", description: "Pháo kích vào hệ thống phòng ngự của địch trong Chiến dịch Hồ Chí Minh", artist: "Tư liệu TTXVN" }
+  ,{ position: [574, 50, -45], size: [50, 30, 1], textureUrl: 'pics/tphcm/5.jpg', title: "Sau 4 ngày đêm chiến đấu", description: "Sư đoàn 304 đã chính thức tiêu diệt toàn bộ cứ điểm căn cứ Nước Trong (Long Thành, Đồng Nai) của địch", artist: "Tư liệu TTXVN" }
+  ,{ position: [574, 50,-105], size: [50, 30, 1], textureUrl: 'pics/tphcm/6.jpg', title: "Tổng thống Ngụy Dương Văn Minh ", description: "Tổng thống Ngụy Dương Văn Minh cùng nội các ra trước Đài Phát thanh Sài Gòn tuyên bố đầu hàng vô điều kiện, kết thúc chiến tranh Việt Nam, trưa 30/4/1975", artist: "Tư liệu TTXVN" }
 ];
 const modelDetails = [
-  { position: [-160.88, 45, 393.15], size: [40, 40, 40], title: "Type - 59", description: "A ferocious tank used in war in Viet Nam", artist: "China/USSR" }
+  { position: [-160.88, 45, 393.15], size: [40, 40, 40], title: "Type - 59", description: "Một chiếc xe tăng hung dữ được sử dụng ở Việt Nam", artist: "China/USSR" }
+  ,{ position: [-160, 50, 680], size: [40, 40, 40], title: "AK-47", description: "Loại súng trường tấn công được thiết kế bởi Mikhail Kalashnikov vào năm 1947.", artist: "Mikhail Kalashnikov" }
+  ,{ position: [203, 45, 580], size: [40, 40, 40], title: "Artillery", description: "A ferocious tank used in war in Viet Nam", artist: "China/USSR" }
+  ,{ position: [-160.88, 45, 393.15], size: [40, 40, 40], title: "B41", description: "A ferocious tank used in war in Viet Nam", artist: "China/USSR" }
 ];
 
 // TextureLoader for Art Pieces
@@ -476,16 +520,6 @@ horizontalBar.style.zIndex = '1000';
 document.body.appendChild(crosshair);
 document.body.appendChild(horizontalBar);
 
-const coordDisplay = document.createElement('div');
-coordDisplay.style.position = 'absolute';
-coordDisplay.style.top = '10px';
-coordDisplay.style.left = '10px';
-coordDisplay.style.color = 'white';
-coordDisplay.style.backgroundColor = 'rgba(0, 0, 0, 0.5)';
-coordDisplay.style.padding = '8px';
-coordDisplay.style.fontFamily = 'Arial';
-document.body.appendChild(coordDisplay);
-
 function animate() {
   requestAnimationFrame(animate);
   renderer.render(scene, camera);
@@ -608,13 +642,13 @@ const listener = new THREE.AudioListener();
 camera.add(listener);
 const sound = new THREE.Audio(listener);
 const audioLoader = new THREE.AudioLoader();
-audioLoader.load('./ambient/ambient2.ogg', function (buffer) {
+audioLoader.load('./ambient/ambient3.ogg', function (buffer) {
   sound.setBuffer(buffer);
   sound.setLoop(true);
   sound.setVolume(0.25);
 
-  document.getElementById('song-title').textContent = 'First Raindrops';
-  document.getElementById('artist-name').textContent = 'by: Dennis Kuo';
+  document.getElementById('song-title').textContent = 'Room With A View';
+  document.getElementById('artist-name').textContent = 'by: Yiruma';
 });
 
 // Show the start screen and wait for the button click
@@ -731,6 +765,7 @@ modelsToLoad.forEach(model => {
     scene.add(modelScene);
   });
 });
+
 
 
 

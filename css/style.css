@@ -89,6 +89,10 @@ header h1 {
   color: white;
   margin-bottom: 20px;
 }
+#startScreen h4 {
+  color: white;
+  margin-bottom: 20px;
+}
 
 #startButton {
   padding: 15px 20px;
