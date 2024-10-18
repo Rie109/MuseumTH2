@@ -345,8 +345,8 @@ const artDetails = [
   ,{ position: [-7, 50, 185], size: [50, 30, 1], textureUrl: 'pics/danang/2.jpg', title: "Giải phóng thành phố Đà Nẵng", description: "Bộ đội ta tiến vào giải phóng thành phố Đà Nẵng", artist: "Tư liệu TTXVN" }
   ,{ position: [-7, 50, 125], size: [50, 30, 1], textureUrl: 'pics/danang/3.jpg', title: "Bộ đội tiến vào Huế, hai bên đường là vũ khí và phương tiện quân Sài Gòn bỏ lại", description: "", artist: "Tư liệu TTXVN" } 
   ,{ position: [7, 50, 245], size: [50, 30, 1], textureUrl: 'pics/danang/4.jpg', title: "Quân ta dành quyền kiểm soát ở Đà Nẳng", description: "CCB Trần Như Tiếp (giữa) cùng đồng đội tại sân bay Đà Nẵng trong ngày giải phóng", artist: "Tư liệu TTXVN" }
-  ,{ position: [7, 50, 185], size: [50, 30, 1], textureUrl: 'pics/test1.jpg', title: "Art Piece 5", description: "Description for Art 1", artist: "Artist 1" }
-  ,{ position: [7, 50, 125], size: [50, 30, 1], textureUrl: 'pics/test1.jpg', title: "Art Piece 6", description: "Description for Art 1", artist: "Artist 1" }
+  ,{ position: [7, 50, 185], size: [50, 30, 1], textureUrl: 'pics/danang/5.JPG', title: "Chiến dịch Huế-Đà Nẵng", description: "Quân Giải phóng miền Nam thắng lợi và tiếp quản Thừa Thiên Huế trong ngày 26 tháng 3 năm 1975", artist: "Tư liệu TTXVN" }
+  ,{ position: [7, 50, 125], size: [50, 30, 1], textureUrl: 'pics/danang/6.jpg', title: "Nhân dân Đà Nẵng đón mừng quân Giải phóng", description: "Nhân dân Đà Nẵng đón mừng quân Giải phóng tiến vào thành phố ngày 29/3/1975", artist: "Tư liệu TTXVN" }
   ,{ position: [555, 50, 15], size: [50, 30, 1], textureUrl: 'pics/tphcm/1.JPG', title: "Xe tăng của Lữ đoàn tăng (thiết giáp 203)", description: "Sư đoàn 304, Quân đoàn 2 tiến vào Dinh Độc Lập", artist: "Tư liệu TTXVN" }
   ,{ position: [555, 50, -45], size: [50, 30, 1], textureUrl: 'pics/tphcm/2.webp', title: "Bộ đội lên máy bay vận tải", description: "Bộ đội lên máy bay vận tải vào miền Nam tham gia Chiến dịch Hồ Chí Minh", artist: "Tư liệu TTXVN" }
   ,{ position: [555, 50, -105], size: [50, 30, 1], textureUrl: 'pics/tphcm/3.jpg', title: "Đánh chiếm Bộ Tổng Tham mưu", description: "Đánh chiếm Bộ Tổng Tham mưu cùng ngày 30/4/1975 lúc 10 giờ 30 phút", artist: "Tư liệu TTXVN" }
@@ -357,8 +357,8 @@ const artDetails = [
 const modelDetails = [
   { position: [-160.88, 45, 393.15], size: [40, 40, 40], title: "Type - 59", description: "Một chiếc xe tăng hung dữ được sử dụng ở Việt Nam", artist: "China/USSR" }
   ,{ position: [-160, 50, 680], size: [40, 40, 40], title: "AK-47", description: "Loại súng trường tấn công được thiết kế bởi Mikhail Kalashnikov vào năm 1947.", artist: "Mikhail Kalashnikov" }
-  ,{ position: [203, 45, 580], size: [40, 40, 40], title: "Artillery", description: "A ferocious tank used in war in Viet Nam", artist: "China/USSR" }
-  ,{ position: [-160.88, 45, 393.15], size: [40, 40, 40], title: "B41", description: "A ferocious tank used in war in Viet Nam", artist: "China/USSR" }
+  ,{ position: [203, 45, 580], size: [40, 40, 40], title: "Mortar 60mm", description: "Loại pháo được sử dụng trong tron Viet Nam ", artist: "US" }
+  ,{ position: [258.70, 45, 258], size: [40, 40, 40], title: "B41", description: "Khẩu súng chống xe tăng không giật", artist: "USSR" }
 ];
 
 // TextureLoader for Art Pieces
