@@ -347,12 +347,12 @@ const artDetails = [
   ,{ position: [7, 50, 245], size: [50, 30, 1], textureUrl: 'pics/danang/4.jpg', title: "Quân ta dành quyền kiểm soát ở Đà Nẳng", description: "CCB Trần Như Tiếp (giữa) cùng đồng đội tại sân bay Đà Nẵng trong ngày giải phóng", artist: "Tư liệu TTXVN" }
   ,{ position: [7, 50, 185], size: [50, 30, 1], textureUrl: 'pics/test1.jpg', title: "Art Piece 5", description: "Description for Art 1", artist: "Artist 1" }
   ,{ position: [7, 50, 125], size: [50, 30, 1], textureUrl: 'pics/test1.jpg', title: "Art Piece 6", description: "Description for Art 1", artist: "Artist 1" }
-  ,{ position: [555, 50, 15], size: [50, 30, 1], textureUrl: 'pics/tphcm/1.jpg', title: "Xe tăng của Lữ đoàn tăng (thiết giáp 203)", description: "Sư đoàn 304, Quân đoàn 2 tiến vào Dinh Độc Lập", artist: "Tư liệu TTXVN" }
+  ,{ position: [555, 50, 15], size: [50, 30, 1], textureUrl: 'pics/tphcm/1.JPG', title: "Xe tăng của Lữ đoàn tăng (thiết giáp 203)", description: "Sư đoàn 304, Quân đoàn 2 tiến vào Dinh Độc Lập", artist: "Tư liệu TTXVN" }
   ,{ position: [555, 50, -45], size: [50, 30, 1], textureUrl: 'pics/tphcm/2.webp', title: "Bộ đội lên máy bay vận tải", description: "Bộ đội lên máy bay vận tải vào miền Nam tham gia Chiến dịch Hồ Chí Minh", artist: "Tư liệu TTXVN" }
   ,{ position: [555, 50, -105], size: [50, 30, 1], textureUrl: 'pics/tphcm/3.jpg', title: "Đánh chiếm Bộ Tổng Tham mưu", description: "Đánh chiếm Bộ Tổng Tham mưu cùng ngày 30/4/1975 lúc 10 giờ 30 phút", artist: "Tư liệu TTXVN" }
   ,{ position: [574, 50, 15], size: [50, 30, 1], textureUrl: 'pics/tphcm/4.jpg', title: "Một trận địa pháo M-46 130mm", description: "Pháo kích vào hệ thống phòng ngự của địch trong Chiến dịch Hồ Chí Minh", artist: "Tư liệu TTXVN" }
-  ,{ position: [574, 50, -45], size: [50, 30, 1], textureUrl: 'pics/tphcm/5.jpg', title: "Sau 4 ngày đêm chiến đấu", description: "Sư đoàn 304 đã chính thức tiêu diệt toàn bộ cứ điểm căn cứ Nước Trong (Long Thành, Đồng Nai) của địch", artist: "Tư liệu TTXVN" }
-  ,{ position: [574, 50,-105], size: [50, 30, 1], textureUrl: 'pics/tphcm/6.jpg', title: "Tổng thống Ngụy Dương Văn Minh ", description: "Tổng thống Ngụy Dương Văn Minh cùng nội các ra trước Đài Phát thanh Sài Gòn tuyên bố đầu hàng vô điều kiện, kết thúc chiến tranh Việt Nam, trưa 30/4/1975", artist: "Tư liệu TTXVN" }
+  ,{ position: [574, 50, -45], size: [50, 30, 1], textureUrl: 'pics/tphcm/5.JPG', title: "Sau 4 ngày đêm chiến đấu", description: "Sư đoàn 304 đã chính thức tiêu diệt toàn bộ cứ điểm căn cứ Nước Trong (Long Thành, Đồng Nai) của địch", artist: "Tư liệu TTXVN" }
+  ,{ position: [574, 50,-105], size: [50, 30, 1], textureUrl: 'pics/tphcm/6.JPG', title: "Tổng thống Ngụy Dương Văn Minh ", description: "Tổng thống Ngụy Dương Văn Minh cùng nội các ra trước Đài Phát thanh Sài Gòn tuyên bố đầu hàng vô điều kiện, kết thúc chiến tranh Việt Nam, trưa 30/4/1975", artist: "Tư liệu TTXVN" }
 ];
 const modelDetails = [
   { position: [-160.88, 45, 393.15], size: [40, 40, 40], title: "Type - 59", description: "Một chiếc xe tăng hung dữ được sử dụng ở Việt Nam", artist: "China/USSR" }
